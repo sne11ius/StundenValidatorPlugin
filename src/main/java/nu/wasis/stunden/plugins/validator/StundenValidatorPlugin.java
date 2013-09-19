@@ -3,11 +3,13 @@ package nu.wasis.stunden.plugins.validator;
 import java.util.Collections;
 
 import net.xeoh.plugins.base.annotations.PluginImplementation;
+import nu.wasis.stunden.commons.CommonDateUtils;
+import nu.wasis.stunden.commons.DayStepValidator;
+import nu.wasis.stunden.commons.DayStepValidator.DayStepResult;
 import nu.wasis.stunden.model.Day;
 import nu.wasis.stunden.model.Entry;
 import nu.wasis.stunden.model.WorkPeriod;
 import nu.wasis.stunden.plugin.ProcessPlugin;
-import nu.wasis.stunden.plugins.validator.DayStepValidator.DayStepResult;
 import nu.wasis.stunden.plugins.validator.exception.InvalidWorkPeriodException;
 
 import org.apache.log4j.Logger;
@@ -30,7 +32,7 @@ public class StundenValidatorPlugin implements ProcessPlugin {
 			throw new InvalidWorkPeriodException("Work period must start with a monday or on the first day of month.");
 		}
 		final boolean endsOnWeekend = endsOnWeekend(workPeriod);
-		final boolean endsOnLastOfMonth = DateUtils.isSameDay(workPeriod.getEnd(), workPeriod.getEnd().dayOfMonth().withMaximumValue());
+		final boolean endsOnLastOfMonth = CommonDateUtils.isSameDay(workPeriod.getEnd(), workPeriod.getEnd().dayOfMonth().withMaximumValue());
 		if (!(endsOnWeekend || endsOnLastOfMonth)) {
 			throw new InvalidWorkPeriodException("Work period must end on (friday, saturday sunday) or on last day of month.");
 		}
