@@ -26,7 +26,7 @@ public class StundenValidatorPlugin implements ProcessPlugin {
 		if (workPeriod.getDays().isEmpty()) {
 			throw new InvalidWorkPeriodException("Work period contains no days.");
 		}
-		final boolean startsOnMonday = DateTimeConstants.MONDAY != workPeriod.getBegin().getDayOfWeek();
+		final boolean startsOnMonday = DateTimeConstants.MONDAY == workPeriod.getBegin().getDayOfWeek();
 		final boolean startsOnFirstOfMonth = 1 == workPeriod.getEnd().getDayOfMonth();
 		if (!(startsOnMonday || startsOnFirstOfMonth)) {
 			throw new InvalidWorkPeriodException("Work period must start with a monday or on the first day of month.");
